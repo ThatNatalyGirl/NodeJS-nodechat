@@ -29,7 +29,7 @@ app.post('/message', function(req, res){
 
 	messages.push({
 		text: req.body.text,
-		username: '',
+		username: req.body.username,
 		timestamp: new Date().getTime()
 	})
 

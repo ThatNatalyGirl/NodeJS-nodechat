@@ -38,10 +38,12 @@ let showMessagesOnDOM = function(messages){
 
 let sendMessage = function(){
 	let field = document.querySelector('input[name="new-message"]');
+	let username = document.querySelector('input[name="username"]');
 	if (field.value){
 		// console.log("send to server", field.value)
 		axios.post('http://localhost:1337/message', {
 			text: field.value,
+			username: username.value,
 		})
 		.then(function (response) {
 			console.log("yay");
