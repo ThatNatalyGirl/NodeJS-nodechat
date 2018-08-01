@@ -16,13 +16,13 @@ let messages = []
 
 // app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/', function(req, res){
-	res.send('/message')
+	res.send('go to /message')
 })	
 
-// app.get('/message', function(req, res){
-// 	console.log(req.body.text)
-// 	res.send('message posted')
-// })	
+app.get('/message', function(req, res){
+	console.log(req.body.text)
+	res.send(messages)
+})	
 
 app.post('/message', function(req, res){
 	console.log(req.body.text)
