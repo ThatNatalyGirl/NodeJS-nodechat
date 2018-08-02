@@ -19,21 +19,46 @@ app.get('/', function(req, res){
 	res.send('go to /message')
 })	
 
+
 app.get('/message', function(req, res){
 	console.log(req.body.text)
 	res.send(messages)
-})	
+})
+
+//get me all the messages since the last timestamp
+app.get('/message/since/:timestamp', function(req, res){
+	let lastMessageSinceUpdate = req.params.timestamp;
+
+	let recentMessages = messages.filter(function(message){
+		// if(message.timestamp > lastMessageSinceUpdate){
+		// 	return true;
+		// } else{
+		// 	return false;
+		// }
+		return message.timestamp > lastMessageSinceUpdate
+	})
+	
+	res.send(recentMessages)
+})
+
+app.delete('/message/:index', function(req, res){
+	console.log("delete message index" + req.params.index)
+	messages.splice(req.params.index, 1)
+	res.send()
+})
 
 app.post('/message', function(req, res){
 	console.log(req.body.text)
 
-	messages.push({
+	let newMessage = {
 		text: req.body.text,
 		username: req.body.username,
 		timestamp: new Date().getTime()
-	})
+	}
 
-	res.send(messages)
+	messages.push(newMessage)
+
+	res.send([newMessage])
 })	
 
 // app.listen(1234, () => console.log('Example app listening on port 3000!'))
